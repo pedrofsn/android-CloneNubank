@@ -1,0 +1,205 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/altura_detalhes_fatura"
+        android:background="@color/bill_open"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewAmount"
+            style="@android:style/TextAppearance.DeviceDefault.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewDueDate"
+            style="@android:style/TextAppearance.DeviceDefault.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            style="@android:style/TextAppearance.DeviceDefault.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewSeparador1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/transparent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutDados"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutPaymentReceived"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/altura_detalhes_fatura"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textViewLabelPaidReceived"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/payment_received"
+                android:textAllCaps="true"
+                android:textColor="@color/bill_open" />
+
+            <TextView
+                android:id="@+id/textViewPaidReceived"
+                style="@android:style/TextAppearance.DeviceDefault.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:textColor="@color/bill_open"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_dados"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textViewLabelTotalCumulative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/month_spending" />
+
+            <TextView
+                android:id="@+id/textViewTotalCumulative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewLabelPastBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewLabelTotalCumulative"
+                android:text="@string/unpaid_values" />
+
+            <TextView
+                android:id="@+id/textViewPastBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textViewTotalCumulative"
+                android:textStyle="bold" />
+
+            <!-- Único label referenciado no Java porque embora o valor do juros do nubank seja este,
+                 pode ser que altere e tenha a necessidade de alterar programaticamente ao invés de ter
+                 que atualizar o app por conta de alguma string hardcoded-->
+
+            <TextView
+                android:id="@+id/textViewLabelInterest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewLabelPastBalance"
+                android:text="@string/label_interest" />
+
+            <TextView
+                android:id="@+id/textViewInterest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textViewPastBalance"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/buttonGenerateBillet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_dados"
+            android:layout_marginBottom="10dp"
+            android:text="@string/generate_billet"
+            android:textAllCaps="true"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/viewSeparador2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/transparent" />
+
+        <!-- Uma alternativa ao RelativeLayout, apenas pra título de conhecimento -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewDescriptionLimitDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAllCaps="true"
+                android:textColor="@color/item_bill_text"
+                android:textSize="@dimen/tamanho_fonte_texto_item_fatura"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewLabelValueInCurrency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textAllCaps="true"
+                android:textColor="@color/item_bill_text"
+                android:textSize="@dimen/tamanho_fonte_texto_item_fatura"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

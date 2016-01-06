@@ -1,0 +1,13 @@
+<resources>
+
+    <dimen name="appbar_padding_top">8dp</dimen>
+
+    <dimen name="margin_dados">16dp</dimen>
+
+    <dimen name="altura_detalhes_fatura">115dp</dimen>
+    <dimen name="margin">5dp</dimen>
+
+    <dimen name="altura_item_fatura">30dp</dimen>
+    <dimen name="barra_da_bolinha_item_da_fatura">10dp</dimen>
+    <dimen name="tamanho_fonte_texto_item_fatura">10sp</dimen>
+</resources>

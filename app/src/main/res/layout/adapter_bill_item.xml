@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/altura_item_fatura">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/viewUp"
+            android:layout_width="2dp"
+            android:layout_height="@dimen/barra_da_bolinha_item_da_fatura"
+            android:background="@color/item_bill_ball"
+            android:visibility="invisible" />
+
+        <View
+            android:id="@+id/viewBall"
+            android:layout_width="@dimen/barra_da_bolinha_item_da_fatura"
+            android:layout_height="@dimen/barra_da_bolinha_item_da_fatura"
+            android:background="@drawable/view_ball" />
+
+        <View
+            android:id="@+id/viewDown"
+            android:layout_width="2dp"
+            android:layout_height="@dimen/barra_da_bolinha_item_da_fatura"
+            android:background="@color/item_bill_ball"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewPostDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_toEndOf="@+id/linearLayout"
+        android:layout_toRightOf="@+id/linearLayout"
+        android:textColor="@color/item_bill_date"
+        android:textSize="@dimen/tamanho_fonte_texto_item_fatura" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toEndOf="@+id/textViewPostDate"
+        android:layout_toLeftOf="@+id/textViewAmount"
+        android:layout_toRightOf="@+id/textViewPostDate"
+        android:layout_toStartOf="@+id/textViewAmount"
+        android:singleLine="true"
+        android:textColor="@color/item_bill_text"
+        android:textSize="@dimen/tamanho_fonte_texto_item_fatura" />
+
+    <TextView
+        android:id="@+id/textViewAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/item_bill_text"
+        android:textSize="@dimen/tamanho_fonte_texto_item_fatura" />
+
+</RelativeLayout>

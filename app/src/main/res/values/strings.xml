@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Clone Nubank</string>
+
+    <string name="values_in_currency" formatted="true">Valores em %s</string>
+    <string name="payment_received">Pagamento recebido</string>
+    <string name="generate_billet">Gerar boleto</string>
+    <string name="prepaid_values">Valores pré-pago</string>
+    <string name="past_due_message">Vencimento %s</string>
+    <string name="closing_in">Fechamento em</string>
+    <string name="partial">Fatura parcial</string>
+    <string name="since_x_until_x" formatted="false">De %s até %s</string>
+    <string name="month_spending">Gastos do mês</string>
+    <string name="unpaid_values">Valores não pagos</string>
+    <string name="label_interest">Juros 7,75%</string>
+    <string name="error_4xx">Houve algum erro com seu pedido.</string>
+    <string name="error_5xx">Desculpe, estamos enfrentando problemas técnicos. Por favor, tente mais tarde.</string>
+    <string name="error_without_connection">Parece que você está sem internet! Por favor, verifique a sua conexão e tente novamente.</string>
+    <string name="close_my_app">Fechar meu app</string>
+</resources>
