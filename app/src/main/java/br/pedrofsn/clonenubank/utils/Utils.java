@@ -13,8 +13,10 @@ public class Utils {
 
     public static final String MONTH_AND_YEAR = "MMM YY";
     public static final String MONTH_AND_DAY = "dd MMM";
-
+    public static final int INVALID_VALUE = -1;
+    public static final String EMPTY_STRING = "";
     private static final String MOEDA = "R$";
+    public static boolean IS_MOCK_OFFLINE = true;
 
     public static String aplicarMoeda(String string) {
         if (string != null)

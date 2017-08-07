@@ -18,8 +18,20 @@ public class LineItem implements Serializable {
     private int charges;
     private String href;
 
+    public LineItem(String post_date, int amount, String title, int index, int charges, String href) {
+        this.post_date = post_date;
+        this.amount = amount;
+        this.title = title;
+        this.index = index;
+        this.charges = charges;
+        this.href = href;
+    }
+
+    public LineItem() {
+    }
+
     public String getPostDateFormatted() {
-        String string = "";
+        String string = Utils.EMPTY_STRING;
         if (!Utils.isNull(post_date)) {
             DateTime dateTime = new DateTime(post_date);
             string = dateTime.toString(Utils.MONTH_AND_YEAR).toUpperCase();

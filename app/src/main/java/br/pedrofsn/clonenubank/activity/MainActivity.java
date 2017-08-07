@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,12 +15,17 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import br.pedrofsn.clonenubank.R;
 import br.pedrofsn.clonenubank.fragment.MonthFragment;
 import br.pedrofsn.clonenubank.model.Bill;
+import br.pedrofsn.clonenubank.model.LineItem;
+import br.pedrofsn.clonenubank.model.Links;
 import br.pedrofsn.clonenubank.model.RootObject;
+import br.pedrofsn.clonenubank.model.Summary;
 import br.pedrofsn.clonenubank.rest.Rest;
 import br.pedrofsn.clonenubank.utils.Utils;
 import retrofit.Callback;
@@ -72,31 +78,63 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void fetchData() {
-        Rest.getInstance().getService().getRootObject().
-                enqueue(new Callback<List<RootObject>>() {
+        if (Utils.IS_MOCK_OFFLINE) {
+            loadMockOffline();
+        } else {
+            Rest.getInstance().getService().getRootObject().
+                    enqueue(new Callback<List<RootObject>>() {
 
-                    @Override
-                    public void onResponse(Response<List<RootObject>> response, Retrofit retrofit) {
-                        if (response.isSuccess()) {
-                            run(response.body());
-                        } else {
-                            int statusCode = response.code();
+                        @Override
+                        public void onResponse(Response<List<RootObject>> response, Retrofit retrofit) {
+                            if (response.isSuccess()) {
+                                run(response.body());
+                            } else {
+                                int statusCode = response.code();
 
-                            if (statusCode >= 400 && statusCode < 500) {
-                                showMessage(getString(R.string.error_4xx));
-                            }
+                                if (statusCode >= 400 && statusCode < 500) {
+                                    showMessage(getString(R.string.error_4xx));
+                                }
 
-                            if (statusCode >= 500) {
-                                showMessage(getString(R.string.error_5xx));
+                                if (statusCode >= 500) {
+                                    showMessage(getString(R.string.error_5xx));
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Throwable t) {
-                        showMessage(getString(R.string.error_without_connection));
-                    }
-                });
+                        @Override
+                        public void onFailure(Throwable t) {
+                            showMessage(getString(R.string.error_without_connection));
+                        }
+                    });
+        }
+    }
+
+    private void loadMockOffline() {
+        showMessage(getString(R.string.usando_mock));
+        List<RootObject> list = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            RootObject root = new RootObject();
+
+            Bill bill = new Bill();
+            bill.setState("overdue");
+            bill.setId(String.valueOf(i));
+            bill.setLinha_digitavel("12345678910");
+            bill.setBarcode("012346546");
+            bill.set_links(new Links());
+            bill.setSummary(new Summary("2017-08-07", "2017-08-07", 11, 12, 1, 13, 14, 15, "2017-08-07"));
+
+            List<LineItem> items = new ArrayList<>();
+            for (int j = 0; j < 10; j++) {
+                items.add(new LineItem("2017-08-07", new Random().nextInt(9999), "Test", j, 15, Utils.EMPTY_STRING));
+            }
+            bill.setLine_items(items);
+
+            root.setBill(bill);
+            list.add(root);
+        }
+
+        run(list);
     }
 
     public void run(final List<RootObject> rootObject) {
@@ -118,12 +156,12 @@ public class MainActivity extends AppCompatActivity {
 
                     textView.setText(bill.getShortMonth());
                     textView.setGravity(Gravity.CENTER);
-                    textView.setTextColor(bill.getColor(this));
+                    textView.setTextColor(bill.getColor());
 
                     // First run!
                     if (tab.isSelected()) {
                         viewTriangle.setVisibility(View.VISIBLE);
-                        viewTriangle.setBackground(bill.getDrawable(MainActivity.this));
+                        viewTriangle.setBackground(ContextCompat.getDrawable(this, bill.getDrawable()));
                         textView.setTextSize(17);
                     }
 
@@ -140,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                     if (!Utils.isNull(tab.getCustomView())) {
                         View viewTriangle = tab.getCustomView().findViewById(R.id.viewTriangle);
                         TextView textView = (TextView) tab.getCustomView().findViewById(R.id.textView);
-                        viewTriangle.setBackground(rootObject.get(tab.getPosition()).getBill().getDrawable(MainActivity.this));
+                        viewTriangle.setBackground(ContextCompat.getDrawable(MainActivity.this, getCustomDrawable(tab)));
                         viewTriangle.setVisibility(View.VISIBLE);
                         textView.setTextSize(17);
                     }
@@ -152,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                     if (!Utils.isNull(tab.getCustomView())) {
                         View viewTriangle = tab.getCustomView().findViewById(R.id.viewTriangle);
                         TextView textView = (TextView) tab.getCustomView().findViewById(R.id.textView);
-                        viewTriangle.setBackground(rootObject.get(tab.getPosition()).getBill().getDrawable(MainActivity.this));
+                        viewTriangle.setBackground(ContextCompat.getDrawable(MainActivity.this, getCustomDrawable(tab)));
                         viewTriangle.setVisibility(View.INVISIBLE);
                         textView.setTextSize(13);
                     }
@@ -162,6 +200,10 @@ public class MainActivity extends AppCompatActivity {
                 public void onTabReselected(TabLayout.Tab tab) {
 
                 }
+
+                private int getCustomDrawable(TabLayout.Tab tab) {
+                    return rootObject.get(tab.getPosition()).getBill().getDrawable();
+                }
             });
         }
     }
@@ -169,18 +211,14 @@ public class MainActivity extends AppCompatActivity {
     private void showMessage(String mensagem) {
         if (mensagem != null) {
             // With coordinatorlayout it's possible use 'swipe to dismiss' in snackbar, it's cool.
-            Snackbar.make(coordinatorLayout, mensagem, Snackbar.LENGTH_INDEFINITE).setCallback(new Snackbar.Callback() {
-                @Override
-                public void onDismissed(Snackbar snackbar, int event) {
-                    super.onDismissed(snackbar, event);
-                    finish();
-                }
-            }).setAction(getString(R.string.close_my_app), new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            }).show();
+            Snackbar.make(coordinatorLayout, mensagem, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(getString(R.string.reload_oline_app), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Utils.IS_MOCK_OFFLINE = false;
+                            fetchData();
+                        }
+                    }).show();
         }
     }
 

@@ -19,6 +19,21 @@ public class Summary implements Serializable {
     private int minimum_payment;
     private String open_date;
 
+    public Summary(String due_date, String close_date, int past_balance, int total_balance, int interest, int total_cumulative, int paid, int minimum_payment, String open_date) {
+        this.due_date = due_date;
+        this.close_date = close_date;
+        this.past_balance = past_balance;
+        this.total_balance = total_balance;
+        this.interest = interest;
+        this.total_cumulative = total_cumulative;
+        this.paid = paid;
+        this.minimum_payment = minimum_payment;
+        this.open_date = open_date;
+    }
+
+    public Summary() {
+    }
+
     public boolean isPaid() {
         return paid < 0;
     }

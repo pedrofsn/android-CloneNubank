@@ -107,7 +107,7 @@ public class MonthFragment extends Fragment {
             // ENUM is aplicable in this case, but it consumes a lot of memory in android #perfmatters
             if (bill.isOverdue()) {
                 if (bill.getSummary().isPaid()) {
-                    showPaymentReceived(bill.getSummary().getPaidAsFloat(), bill.getColor(getActivity()));
+                    showPaymentReceived(bill.getSummary().getPaidAsFloat(), bill.getColor());
                 }
 
             } else if (bill.isOpen()) {
@@ -127,7 +127,7 @@ public class MonthFragment extends Fragment {
 
             textViewDescriptionLimitDate.setText(String.format(getString(R.string.since_x_until_x), dateOpen.toString(Utils.MONTH_AND_DAY), dateClosed.toString(Utils.MONTH_AND_DAY)).toUpperCase());
 
-            linearLayout.setBackgroundColor(bill.getColor(getActivity()));
+            linearLayout.setBackgroundColor(bill.getColor());
 
             AdapterBillItem adapterBillItem = new AdapterBillItem(getActivity(), bill.getLine_items());
             listView.setAdapter(adapterBillItem);

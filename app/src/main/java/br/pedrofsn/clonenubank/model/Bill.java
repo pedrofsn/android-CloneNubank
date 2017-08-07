@@ -1,8 +1,5 @@
 package br.pedrofsn.clonenubank.model;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-
 import org.joda.time.DateTime;
 
 import java.io.Serializable;
@@ -14,7 +11,6 @@ import br.pedrofsn.clonenubank.utils.Utils;
 /**
  * Created by pedrofsn on 04/01/2016.
  */
-@SuppressWarnings("deprecation") // The alternative for getColor just runs on API 23
 public class Bill implements Serializable {
 
     private String state;
@@ -49,28 +45,30 @@ public class Bill implements Serializable {
         this.state = state;
     }
 
-    public int getColor(Context context) {
+    public int getColor() {
         if (isOverdue())
-            return context.getResources().getColor(R.color.bill_overdue);
+            return R.color.bill_overdue;
         if (isOpen())
-            return context.getResources().getColor(R.color.bill_open);
+            return R.color.bill_open;
         if (isClosed())
-            return context.getResources().getColor(R.color.bill_closed);
+            return R.color.bill_closed;
         if (isFuture())
-            return context.getResources().getColor(R.color.bill_future);
-        return -1;
+            return R.color.bill_future;
+
+        return Utils.INVALID_VALUE;
     }
 
-    public Drawable getDrawable(Context context) {
+    public int getDrawable() {
         if (isOverdue())
-            return context.getResources().getDrawable(R.drawable.triangle_bill_overdue);
+            return R.drawable.triangle_bill_overdue;
         if (isOpen())
-            return context.getResources().getDrawable(R.drawable.triangle_bill_open);
+            return R.drawable.triangle_bill_open;
         if (isClosed())
-            return context.getResources().getDrawable(R.drawable.triangle_bill_closed);
+            return R.drawable.triangle_bill_closed;
         if (isFuture())
-            return context.getResources().getDrawable(R.drawable.triangle_bill_future);
-        return null;
+            return R.drawable.triangle_bill_future;
+
+        return Utils.INVALID_VALUE;
     }
 
     public String getShortMonth() {
@@ -134,4 +132,5 @@ public class Bill implements Serializable {
     public void setLine_items(List<LineItem> line_items) {
         this.line_items = line_items;
     }
+
 }

@@ -15,5 +15,6 @@
     <string name="error_4xx">There was an error with your order.</string>
     <string name="error_5xx">Sorry, we are experiencing technical problems. Please try again later.</string>
     <string name="error_without_connection">It seems that you are without internet! Please check your connection and try again.</string>
-    <string name="close_my_app">Close my app</string>
+    <string name="reload_oline_app">Try API online</string>
+    <string name="usando_mock">You\'re using offline data</string>
 </resources>
